@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rb-fsevent (0.9.7)
+    rsync (1.0.9)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rb-fsevent
+  rsync
+
+BUNDLED WITH
+   1.12.5
