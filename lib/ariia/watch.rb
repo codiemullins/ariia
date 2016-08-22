@@ -12,7 +12,7 @@ module Ariia
       watchers[local_path] = {
         remote_user: remote_user,
         remote_server: remote_server,
-        remote_path: remote_path
+        remote_path: remote_path,
       }
     end
 
@@ -21,7 +21,12 @@ module Ariia
         local_path = local_path(directories)
         if local_path
           opts = watchers[local_path]
-          Rsync.run local_path, opts[:remote_user], opts[:remote_server], opts[:remote_path]
+          Rsync.run(
+            local_path,
+            opts[:remote_user],
+            opts[:remote_server],
+            opts[:remote_path],
+          )
         end
       end
 
@@ -33,7 +38,7 @@ module Ariia
     end
 
     def local_path directories
-      local_path = local_paths.find do |path|
+      local_paths.find do |path|
         directories.any? { |dir| dir.include?(path) }
       end
     end

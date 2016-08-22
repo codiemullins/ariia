@@ -7,9 +7,11 @@ module Ariia
         '-rae', '"ssh -T -l wti"', '--delete', '--exclude="/.git"',
         '--exclude="/tmp"', '--exclude="/log"', '--exclude="/vendor/bundle"',
         '--exclude="/public/static"', '--exclude="/public/lists"',
-      ]
+      ].freeze
 
-      attr_accessor :local_path, :remote_user, :remote_path, :remote_server, :args
+      attr_accessor(
+        :local_path, :remote_user, :remote_path, :remote_server, :args,
+      )
 
       def run local_path, remote_user, remote_server, remote_path, args = nil
         @local_path = local_path
@@ -25,7 +27,9 @@ module Ariia
 
       def handle_result result
         if result.success?
-          result.changes.each { |change| puts "#{change.filename} (#{change.summary})" }
+          result.changes.each do |change|
+            puts "#{change.filename} (#{change.summary})"
+          end
         else
           puts result.error
         end

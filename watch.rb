@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-
-$:.unshift File.dirname(__FILE__)
+$LOAD_PATH.unshift File.dirname(__FILE__)
 
 require 'lib/ariia'
 require 'json'
@@ -12,7 +11,12 @@ watcher = Ariia::Watch.new
 
 config_options.each do |config|
   puts config
-  watcher.watch config['local_path'], config['remote']['user'], config['remote']['server'], config['remote']['path']
+  watcher.watch(
+    config['local_path'],
+    config['remote']['user'],
+    config['remote']['server'],
+    config['remote']['path'],
+  )
 end
 
 watcher.run
