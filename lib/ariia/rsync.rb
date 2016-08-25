@@ -13,7 +13,7 @@ module Ariia
         :local_path, :remote_user, :remote_path, :remote_server, :args,
       )
 
-      def run local_path, remote_user, remote_server, remote_path, args = nil
+      def run(local_path, remote_user, remote_server, remote_path, args = nil)
         @local_path = local_path
         @remote_user = remote_user
         @remote_server = remote_server
