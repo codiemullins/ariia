@@ -8,6 +8,8 @@ Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
 
+Metrics/LineLength:
+  Max: 120
 
 Style/TrailingCommaInArguments:
   # If `comma`, the cop requires a comma after the last argument, but only for

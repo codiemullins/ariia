@@ -4,21 +4,18 @@ module Ariia
   class Rsync
     class << self
       DEFAULT_ARGS = [
-        '-rae', '"ssh -T -l wti"', '--delete', '--exclude="/.git"',
-        '--exclude="/tmp"', '--exclude="/log"', '--exclude="/vendor/bundle"',
-        '--exclude="/public/static"', '--exclude="/public/lists"',
+        '-rae', '"ssh -T -l wti"', '--delete',
       ].freeze
 
-      attr_accessor(
-        :local_path, :remote_user, :remote_path, :remote_server, :args,
-      )
+      attr_accessor :local_path, :remote_user, :remote_path, :remote_server, :exclude, :args
 
-      def run local_path, remote_user, remote_server, remote_path, args = nil
+      def run local_path, remote, exclude, args = nil
         @local_path = local_path
-        @remote_user = remote_user
-        @remote_server = remote_server
-        @remote_path = remote_path
-        @args = args || default_args
+        @remote_user = remote[:user]
+        @remote_server = remote[:server]
+        @remote_path = remote[:path]
+        @exclude = exclude.map { |exclude_item| "--exclude=#{exclude_item}" }
+        @args = (args || default_args.dup).concat(*@exclude)
 
         ::Rsync.run(@local_path, remote_connection, @args) do |result|
           handle_result result
