@@ -8,11 +8,12 @@ module Ariia
       @watchers = {}
     end
 
-    def watch local_path, remote_user, remote_server, remote_path
+    def watch local_path, remote_user, remote_server, remote_path, exclude
       watchers[local_path] = {
         remote_user: remote_user,
         remote_server: remote_server,
         remote_path: remote_path,
+        exclude: exclude,
       }
     end
 
@@ -23,9 +24,12 @@ module Ariia
           opts = watchers[local_path]
           Rsync.run(
             local_path,
-            opts[:remote_user],
-            opts[:remote_server],
-            opts[:remote_path],
+            {
+              user: opts[:remote_user],
+              server: opts[:remote_server],
+              path: opts[:remote_path],
+            },
+            opts[:exclude],
           )
         end
       end
