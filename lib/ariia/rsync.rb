@@ -15,7 +15,7 @@ module Ariia
         @remote_server = remote[:server]
         @remote_path = remote[:path]
         @exclude = exclude.map { |exclude_item| "--exclude=#{exclude_item}" }
-        @args = (args || default_args.dup).concat(*@exclude)
+        @args = (args || default_args.dup).concat @exclude
 
         ::Rsync.run(@local_path, remote_connection, @args) do |result|
           handle_result result
