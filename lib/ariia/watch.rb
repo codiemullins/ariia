@@ -22,6 +22,7 @@ module Ariia
         local_path = local_path(directories)
         if local_path
           opts = watchers[local_path]
+          puts local_path, opts
           Rsync.run(
             local_path,
             {
@@ -29,7 +30,7 @@ module Ariia
               server: opts[:remote_server],
               path: opts[:remote_path],
             },
-            opts[:exclude],
+            (opts[:exclude] || []),
           )
         end
       end

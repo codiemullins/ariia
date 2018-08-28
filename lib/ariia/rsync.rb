@@ -9,7 +9,7 @@ module Ariia
 
       attr_accessor :local_path, :remote_user, :remote_path, :remote_server, :exclude, :args
 
-      def run local_path, remote, exclude, args = nil
+      def run local_path, remote, exclude = [], args = nil
         @local_path = local_path
         @remote_user = remote[:user]
         @remote_server = remote[:server]
